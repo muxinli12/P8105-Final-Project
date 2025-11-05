@@ -1,0 +1,8 @@
+---
+title: "Final Project proposal"
+author: "Daiya Chi, Yumeng Lu, Muxin Li, Yunyi Yang"
+date: "2025-11-05"
+output: github_document
+---
+
+Still working on it.
