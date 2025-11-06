@@ -5,4 +5,24 @@ date: "2025-11-05"
 output: github_document
 ---
 
-Still working on it.
+In our research, we want to analyze the data from Citibike BikeSharing Data (https://citibikenyc.com/system-data). We obtained the Citibike Data from 2019 (from Citi Bike Website) to 2020 (from Kaggle) to analyze and compare the user behavior patterns. In our Dataset of Citibike, we have 11 different variables, including:
+
+Trip Duration (seconds)
+Start Time and Date
+Stop Time and Date
+Start Station Name
+End Station Name
+Station ID
+Station Lat/Long
+Bike ID
+User Type (Customer = 24-hour pass or 3-day pass user; Subscriber = Annual Member)
+Gender (Zero=unknown; 1=male; 2=female)
+Year of Birth
+
+We want to apply three different analysis to this Dataset: 
+
+First, we are going to make a visual map to visualize the Start Station and End Station in 2019 and 2020 because the time between 2019 and 2020 is the start time of COVID, which would change the behavior pattern of users from different ages ranges (18-30, 31-50, 50+).
+
+Second, summarize and visualize popular destinations in different years(parks, hospital, central business district, etc.), frequency of using Citibike (by hours and years), etc.
+
+Third, analyze the potential reasons, including the influence of COVID, of the different behavior patterns between 2019 and 2020. We also want to come up with useful recommendations for Citibike, such as setting more bikes in some popular stations, balancing station sources, and providing customized services for different users from different age range.
