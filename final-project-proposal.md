@@ -1,58 +1,117 @@
-Final Project proposal
+The Pulse of the City: An Analysis of COVID-19’s Impact on NYC Citi Bike
+User Behavior and Geospatial Patterns, 2019 vs 2020
 ================
 Daiya Chi, Yumeng Lu, Muxin Li, Yunyi Yang
 2025-11-05
+
+# Motivation for this project
+
+The COVID-19 pandemic represents a major shock to modern society,
+drastically altering residents’ commute, leisure, and lifestyle
+patterns. During pandemic, many individuals avoided enclosed public
+transportation, such as bus and subways and preferred private or
+semi-private transportation. Citi Bike, as a flexible, open-air mode of
+transport, provides an ideal perspective for observing this
+transformation.
 
 # Introduction
 
 In our research, we want to analyze the data from Citibike BikeSharing
 Data (<https://citibikenyc.com/system-data>). We obtained the Citibike
 Data from 2019.1 to 2020.12 (from Citi Bike Website) to analyze and
-compare the user behavior patterns.
+compare the user behavior patterns. By comparing 2019 (a baseline) and
+2020 (the period of major impact) riding data, and segmenting by age and
+gender groups, the project aims to uncover differential behavioral
+responses to the pandemic across demographics, providing deep insights
+for urban planning and transit services.
 
-# Variables
+# The intended final products
 
-In our Dataset of Citibike, we have 11 different variables, including:
+**Interactive Dashboard/Visualization Report:** Creating visualization
+web dashboards by Plotly and mainly focusing on comparison of 2019 vs
+2020.
 
-Trip Duration (seconds)
+Key views will include: Dynamic Geospatial Flow Maps, Cyclical Behavior
+Heatmaps, and User Demographic Distribution Comparisons.
 
-Start Time and Date
+**Structured Analysis Report:**
 
-Stop Time and Date
+A detailed PDF report covering the data cleaning process, key analytical
+findings, statistical evidence (e.g., significance tests), and
+customized recommendations for the Citi Bike operator or the NYC
+Department of Transportation.
 
-Start Station Name
+# The anticipated data sources
 
-End Station Name
+**Primary Data Sources:**
 
-Station ID
+Citibike BikeSharing Data for 2019 and 2020
+(<https://citibikenyc.com/system-data>)
 
-Station Lat/Long
+**Secondary Data Sources:**
 
-Bike ID
+External Control Data: Time series data on NYC COVID-19 daily confirmed
+cases (for time-axis comparison) and concurrent weather data (to control
+for weather influence on ridership).
 
-User Type (Customer = 24-hour pass or 3-day pass user; Subscriber =
-Annual Member)
+# The planned analyses / visualizations / coding challenges
 
-Gender (Zero=unknown; 1=male; 2=female)
+**Geospatial Analysis**
 
-Year of Birth
+`Dynamic Flow Maps:` Compare the most popular routes and hotspots
+between 2019 and 2020.
 
-# Analysis
+`Hexbin Density Maps:` Show where people rode most often, split by age
+group.
 
-We want to apply three different analysis to this Dataset:
+1.  `Distance Calculation:` Use the Haversine formula to calculate trip
+    distance from station coordinates.
 
-First, we are going to make a visual map to visualize the Start Station
-and End Station in 2019 and 2020 because the time between 2019 and 2020
-is the start time of COVID, which would change the behavior pattern of
-users from different ages ranges (18-30, 31-50, 50+).
+2.  `Data Aggregation:` Group latitude and longitude data into hexbin
+    grids or regional areas.
 
-Second, summarize and visualize popular destinations in different
-years(parks, hospital, central business district, etc.), frequency of
-using Citibike (by hours and years), etc.
+**Temporal Behavior Analysis**
 
-Third, analyze the potential reasons, including the influence of COVID,
-of the different behavior patterns between 2019 and 2020. We also want
-to come up with useful recommendations for Citibike, such as setting
-more bikes in some popular stations, balancing station sources, and
-providing customized services for different users from different age
-range.
+`Cyclical Heatmaps:` Compare ride frequency by hour and day of the week
+for 2019 vs. 2020.
+
+`Animated Time Series:` Show monthly ridership trends by age group.
+
+1.  `Time Features:` Extract hour, day of week, and month from the
+    starttime column.
+
+2.  `Time Alignment:` Make sure 2019 and 2020 time periods match for
+    easy comparison.
+
+**User Profile Analysis**
+
+`Violin Plots:` Compare trip duration distributions across age groups
+and genders.
+
+`Stacked Percentage Charts:` Show how the share of Subscribers
+vs. Customers changed, and how extreme trip durations shifted.
+
+1.  `Feature Engineering:` Create age groups from birth year.
+
+2.  `Behavior Metrics:` Define “commuter” rides (short, weekday) and
+    “leisure” rides (long, weekend).
+
+`Diagnosis & Recommendations`
+
+`Correlation Analysis:` Check how ridership changes relate to daily
+COVID-19 cases and weather.
+
+`Regression Modeling:` Run a simple model to measure the impact of
+COVID-19 on ridership while controlling for weather.
+
+# The planned timeline
+
+11/6 - 11/10: Data Acquisition and Cleaning
+
+11/10 - 11/15: Basic Exploratory Data Analysis
+
+11/15 - 11/20: Core Comparative Visualization
+
+11/20 - 11/25: Advanced Analysis and Modeling
+
+11/25 - 11/30: Final Product Integration, final report
