@@ -6,11 +6,12 @@ output: github_document
 ---
 # Motivation for this project
 
-The COVID-19 pandemic represents a major shock to modern society, drastically altering residents' commute, leisure, and lifestyle patterns. During pandemic, many individuals avoided enclosed public transportation, such as bus and subways and preferred private or semi-private transportation. Citi Bike, as a flexible, open-air mode of transport, provides an ideal perspective for observing this transformation.
+The COVID-19 pandemic profoundly disrupted commuting and lifestyle patterns. Many people avoided enclosed public transit and turned to private or semi-private options. As an open-air, flexible system, Citi Bike offers a valuable lens to observe these shifts.
 
 # Introduction
 
-In our research, we want to analyze the data from Citibike BikeSharing Data (https://citibikenyc.com/system-data). We obtained the Citibike Data from 2019.1 to 2020.12 (from Citi Bike Website) to analyze and compare the user behavior patterns. By comparing 2019 (a baseline) and 2020 (the period of major impact) riding data, and segmenting by age and gender groups, the project aims to uncover differential behavioral responses to the pandemic across demographics, providing deep insights for urban planning and transit services.
+This study uses Citi Bike data (https://citibikenyc.com/system-data
+) from 2019–2020 to compare user behavior before and during the pandemic. By analyzing patterns across age and gender, we reveal demographic differences and insights for urban planning.
 
 # The intended final products
 
