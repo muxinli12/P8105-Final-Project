@@ -1,8 +1,9 @@
 The Pulse of the City: An Analysis of COVID-19’s Impact on NYC Citi Bike
 User Behavior and Geospatial Patterns, 2019 vs 2020
 ================
-Daiya Chi, Yumeng Lu, Muxin Li, Yunyi Yang
-2025-11-05
+Daiya Chi (dc3964), Yumeng Lu (yl6104), Muxin Li (ml5363), Yunyi Yang
+(yy3662)
+2025-11-07
 
 # Motivation for this project
 
