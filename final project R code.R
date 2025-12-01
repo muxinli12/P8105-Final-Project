@@ -40,7 +40,10 @@ list_of_bike_data =
   purrr::pmap(.f = process_bike_data)
 
 all_bike_data_2019 =
-  bind_rows(list_of_bike_data)
+  bind_rows(list_of_bike_data) |> 
+  mutate(
+    year = "2019"
+  )
 
 ## Loading and cleaning data for 2020 ones
 bike_files_info = tibble(
@@ -80,4 +83,12 @@ list_of_bike_data =
   purrr::pmap(.f = process_bike_data)
 
 all_bike_data_2020 =
-  bind_rows(list_of_bike_data)
+  bind_rows(list_of_bike_data) |> 
+  mutate(
+    year = "2020"
+  )
+
+bike_df =
+  bind_rows(all_bike_data_2019, all_bike_data_2020)
+
+## analyzing data
