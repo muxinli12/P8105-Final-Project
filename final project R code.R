@@ -10,7 +10,7 @@ bike_files_info = tibble(
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   )) |> 
   mutate(
-    file_path = paste0("2019/JC-2019", month_code, "-citibike-tripdata.csv")
+    file_path = paste0("data/2019/JC-2019", month_code, "-citibike-tripdata.csv")
   )
 
 process_bike_data =
@@ -53,7 +53,7 @@ bike_files_info = tibble(
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   )) |> 
   mutate(
-    file_path = paste0("2020/JC-2020", month_code, "-citibike-tripdata.csv")
+    file_path = paste0("data/2020/JC-2020", month_code, "-citibike-tripdata.csv")
   )
 
 process_bike_data =
@@ -91,4 +91,4 @@ all_bike_data_2020 =
 bike_df =
   bind_rows(all_bike_data_2019, all_bike_data_2020)
 
-## analyzing data
+write_csv(bike_df, "data/bike_data_combined.csv")
