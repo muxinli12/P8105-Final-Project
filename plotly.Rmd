@@ -1,90 +1,27 @@
 ---
-title: "plotly and dashboards"
-author: "Rene Chi"
-date: "2025-10-21"
-output: html_document
+title: "Citi Bike station map in Jersey City"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
 ---
-
-```{r setup, message = FALSE}
-library(tidyverse)
-library(plotly)
-library(ggplot2)
-library(p8105.datasets)
+```{r setup, include=FALSE}
+library(flexdashboard)
 ```
 
-Loading the data
+Column {.sidebar}
+-----------------------------------------------------------------------
 
 ```{r}
-data("instacart")
+
 ```
 
-Draw a barplot
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
 
 ```{r}
-instacart |> 
-  count(aisle, sort = TRUE) |> 
-  filter(n > 10000) |> 
-  mutate(aisle = fct_reorder(aisle, n)) |> 
-  plot_ly(
-    x = ~ n,
-    y = ~ aisle,
-    type = "bar",
-    orientation = "h",
-    color = ~ aisle,
-    colors = "viridis"
-  ) |> 
-  layout(
-    title = "",
-    xaxis = list(title = "Items ordered"),
-    yaxis = list(title = "")
-  )
+
 ```
-
-Draw a boxplot 
-
-```{r}
-box_ggplot =
-  instacart |> 
-  filter(department == "dairy eggs") |> 
-  mutate(aisle = fct_reorder(aisle, order_hour_of_day)) |> 
-  ggplot(aes(x = aisle, y = order_hour_of_day, fill = aisle)) +
-  geom_boxplot() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-  labs(
-    title = "",
-    x = "",
-    y = "hour of the day"
-  )
-  
-ggplotly(box_ggplot)  
-```
-
-
-Draw a line plot
-
-```{r}
-instacart |> 
-  filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) |> 
-  group_by(product_name, order_dow) |>
-  summarize(mean_hour = round(mean(order_hour_of_day, na.rm = TRUE),digit = 2),
-            .groups = "drop") |>
-  mutate(order_dow = recode(order_dow,
-                            `0` = "Sun", `1` = "Mon", `2` = "Tue",
-                            `3` = "Wed", `4` = "Thu", `5` = "Fri", `6` = "Sat")) |> 
-  arrange(product_name, order_dow) |> 
-  plot_ly(
-  x = ~ order_dow,
-  y = ~ mean_hour,
-  color = ~ product_name,        
-  type = 'scatter',
-  mode = 'lines+markers',      
-  colors = "Dark2"              
-) |> 
-  layout(
-    title = "",
-    xaxis = list(title = "Day of Week"),
-    yaxis = list(title = "Average order hour"),
-    legend = list(title = list(text = "Product"))
-  )
-```
-

@@ -11,7 +11,7 @@
 
 
 
-<title>Riding Distance</title>
+<title>Riding Time and distance</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -320,11 +320,16 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="authors.html">About us</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -332,9 +337,6 @@ div.tocify {
 </li>
 <li>
   <a href="plotly.html">Plotly plots</a>
-</li>
-<li>
-  <a href="dashboard.html">Flexdashboard</a>
 </li>
 <li>
   <a href="mailto:&lt;dc3964@cumc.columbia.edu&gt;">
@@ -365,7 +367,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Riding Distance</h1>
+<h1 class="title toc-ignore">Riding Time and distance</h1>
 
 </div>
 
@@ -374,7 +376,7 @@ div.tocify {
 <pre class="r"><code>library(tidyverse)
 library(geosphere)
 
-bike_df = read_csv(&quot;data/bike_data_combined.csv&quot;)
+bike_df = read.csv(&quot;data/bike_data_combined.csv&quot;)
 
 bike_year_distance =
   bike_df |&gt;
@@ -393,9 +395,12 @@ bike_year_distance =
     )
   ) |&gt;
   filter(age_group != &quot;&lt;18&quot; &amp; age_group != &quot;65+&quot;) |&gt;
+  filter(tripduration &lt; 100000 &amp; tripduration &gt; 0) |&gt;
+  filter(distance_km &lt; 100 &amp; distance_km &gt; 0) |&gt;
   select(year,month,tripduration,age_group,distance_km,distance_m)
 
-bike_time = bike_year_distance |&gt;
+bike_time =
+  bike_year_distance |&gt;
   mutate(year = factor(year),
          month = factor(
       month,
@@ -406,15 +411,14 @@ bike_time = bike_year_distance |&gt;
   summarise(time = mean(tripduration))
 
 ggplot(bike_time, 
-       aes(x = age_group, y = time, color = year, group = year)) +
-  geom_line(linewidth = 1.1) +
-  geom_point(size = 2.8) +
+       aes(x = age_group, y = time, fill = year)) +
+  geom_col(position = &quot;dodge&quot;) +
   facet_wrap(~ month, ncol = 4) +
   labs(
     title = &quot;Monthly Comparison of Riding Time Across Age Groups (2019 vs 2020)&quot;,
     x = &quot;Age Group&quot;,
     y = &quot;Average Riding Time (seconds)&quot;,
-    color = &quot;Year&quot;
+    fill = &quot;Year&quot;
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -451,26 +455,21 @@ ggplot(bike_time,
   summarise(distance = mean(distance_m))
 
 ggplot(bike_distance,
-       aes(x = age_group, y = distance, color = year, group = year)) +
-  geom_line(linewidth = 1.1) +
-  geom_point(size = 2.8) +
+       aes(x = age_group, y = distance, fill = year)) +
+  geom_col(position = &quot;dodge&quot;) +
   facet_wrap(~ month, ncol = 4) +
   labs(
     title = &quot;Monthly Comparison of Riding Distance Across Age Groups (2019 vs 2020)&quot;,
     x = &quot;Age Group&quot;,
     y = &quot;Average Riding Distance (m)&quot;,
-    color = &quot;Year&quot;
+    fill = &quot;Year&quot;
   ) +
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
   )</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>bike_distance =
-  bike_distance |&gt;
-  filter(age_group != &quot;&lt;18&quot; &amp; age_group != &quot;65+&quot;)
-
-ggplot(
+<pre class="r"><code>ggplot(
   bike_distance,
   aes(x = month, y = distance, color = age_group, group = age_group)
 ) +

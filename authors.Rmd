@@ -1,0 +1,23 @@
+---
+title: "About us"
+output: 
+  html_document:
+    toc: true
+    toc_float: true 
+    theme: sandstone
+---
+
+## Family guys
+![](images/family guy.jpg){width=75%}
+
+### Yumeng Lu (Lois)
+![](images/allison.jpg){width=75%}
+
+### Muxin Li (Meg)
+![](images/jupiter.jpg){width=75%}
+
+### Yunyi Yang (Chris)
+![](images/yyy.jpg){width=75%}
+
+### Daiya Chi (Stewie)
+![](images/rene.jpg){width=75%}

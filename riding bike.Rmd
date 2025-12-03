@@ -1,5 +1,5 @@
 ---
-title: "Riding Distance"
+title: "Riding Time and distance"
 output: 
   html_document:
     code_folding: hide
@@ -13,7 +13,7 @@ I ride, you ride, he rides, she rides.
 library(tidyverse)
 library(geosphere)
 
-bike_df = read_csv("data/bike_data_combined.csv")
+bike_df = read.csv("data/bike_data_combined.csv")
 
 bike_year_distance =
   bike_df |>
@@ -32,9 +32,12 @@ bike_year_distance =
     )
   ) |>
   filter(age_group != "<18" & age_group != "65+") |>
+  filter(tripduration < 100000 & tripduration > 0) |>
+  filter(distance_km < 100 & distance_km > 0) |>
   select(year,month,tripduration,age_group,distance_km,distance_m)
 
-bike_time = bike_year_distance |>
+bike_time =
+  bike_year_distance |>
   mutate(year = factor(year),
          month = factor(
       month,
@@ -45,15 +48,14 @@ bike_time = bike_year_distance |>
   summarise(time = mean(tripduration))
 
 ggplot(bike_time, 
-       aes(x = age_group, y = time, color = year, group = year)) +
-  geom_line(linewidth = 1.1) +
-  geom_point(size = 2.8) +
+       aes(x = age_group, y = time, fill = year)) +
+  geom_col(position = "dodge") +
   facet_wrap(~ month, ncol = 4) +
   labs(
     title = "Monthly Comparison of Riding Time Across Age Groups (2019 vs 2020)",
     x = "Age Group",
     y = "Average Riding Time (seconds)",
-    color = "Year"
+    fill = "Year"
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -92,15 +94,14 @@ bike_distance = bike_year_distance |>
   summarise(distance = mean(distance_m))
 
 ggplot(bike_distance,
-       aes(x = age_group, y = distance, color = year, group = year)) +
-  geom_line(linewidth = 1.1) +
-  geom_point(size = 2.8) +
+       aes(x = age_group, y = distance, fill = year)) +
+  geom_col(position = "dodge") +
   facet_wrap(~ month, ncol = 4) +
   labs(
     title = "Monthly Comparison of Riding Distance Across Age Groups (2019 vs 2020)",
     x = "Age Group",
     y = "Average Riding Distance (m)",
-    color = "Year"
+    fill = "Year"
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -110,10 +111,6 @@ ggplot(bike_distance,
 ```
 
 ```{r, message = FALSE}
-bike_distance =
-  bike_distance |>
-  filter(age_group != "<18" & age_group != "65+")
-
 ggplot(
   bike_distance,
   aes(x = month, y = distance, color = age_group, group = age_group)
@@ -131,7 +128,6 @@ ggplot(
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
   )
-
 ```
   
 ## Summary
