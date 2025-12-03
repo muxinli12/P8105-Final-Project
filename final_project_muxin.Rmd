@@ -1,0 +1,149 @@
+---
+title: "final_project_muxin"
+author: "Muxin Li"
+date: "2025-12-03"
+output: html_document
+---
+
+Behavior pattern based on age ranges  2019 vs 2020   (code)
+Riding distance plot 2019-2020 per month (code)
+
+```{r}
+library(tidyverse)
+library(geosphere)
+```
+
+```{r}
+bike_df=read.csv("data/bike_data_combined.csv")
+
+bike_year_distance=
+  bike_df|>
+  mutate(
+    age=year-birth_year,
+    distance_m = distHaversine(
+      cbind(start_station_longitude, start_station_latitude),
+      cbind(end_station_longitude,   end_station_latitude)))|>
+  mutate(distance_km = distance_m / 1000)|>
+  mutate(
+    age_group = cut(
+      age,
+      breaks = c(-Inf, 17, 29, 49, 64, Inf),
+      labels = c("<18", "18–29", "30–49", "50–64", "65+"),
+      right = TRUE
+    )
+  )|>
+  filter(age_group!="<18"& age_group!="65+")|>
+  select(year,month,tripduration,age_group,distance_km,distance_m)
+      
+```
+
+```{r}
+  
+bike_time=bike_year_distance|>
+  mutate(year = factor(year),
+         month = factor(
+      month,
+      levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    ))|>
+  group_by(year,month,age_group)|>
+  summarise(time=mean(tripduration))
+
+ggplot(bike_time, 
+       aes(x = age_group, y = time, color = year, group = year)) +
+  geom_line(linewidth = 1.1) +
+  geom_point(size = 2.8) +
+  facet_wrap(~ month, ncol = 4) +
+  labs(
+    title = "Monthly Comparison of Riding Time Across Age Groups (2019 vs 2020)",
+    x = "Age Group",
+    y = "Average Riding Time (seconds)",
+    color = "Year"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 40, hjust = 1)
+  )
+```
+
+
+```{r}
+ggplot(
+  bike_time,
+  aes(x = month, y = time, color = age_group, group = age_group)
+) +
+  geom_line(linewidth = 1.1) +
+  geom_point(size = 2.5) +
+  facet_grid(. ~ year) + 
+  labs(
+    title = "Monthly Riding Time by Age Group (2019 vs 2020)",
+    x = "Month",
+    y = "Average Riding Time (seconds)",
+    color = "Age Group"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 40, hjust = 1)
+  )
+```
+
+
+
+12个月对比
+```{r}
+bike_distance=bike_year_distance|>
+  filter(distance_km<100 & distance_km>0)|>
+  mutate(year = factor(year),
+         month = factor(
+      month,
+      levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    ))|>
+  group_by(year,month,age_group)|>
+  summarise(distance=mean(distance_m))
+
+ggplot(bike_distance,
+       aes(x = age_group, y = distance, color = year, group = year)) +
+  geom_line(linewidth = 1.1) +
+  geom_point(size = 2.8) +
+  facet_wrap(~ month, ncol = 4) +
+  labs(
+    title = "Monthly Comparison of Riding Distance Across Age Groups (2019 vs 2020)",
+    x = "Age Group",
+    y = "Average Riding Distance (m)",
+    color = "Year"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 40, hjust = 1)
+  )
+
+```
+
+```{r}
+bike_distance=
+  bike_distance|>
+  filter(age_group!="<18"& age_group!="65+")
+
+ggplot(
+  bike_distance,
+  aes(x = month, y = distance, color = age_group, group = age_group)
+) +
+  geom_line(linewidth = 1.1) +
+  geom_point(size = 2.5) +
+  facet_wrap(~ year, nrow = 1) +  
+  labs(
+    title = "Monthly Riding Distance by Age Group (2019 vs 2020)",
+    x = "Month",
+    y = "Average Riding Distance (m)",
+    color = "Age Group"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 40, hjust = 1)
+  )
+
+```
+
+summary:
+Beginning in March–April 2020, both riding distance and riding time increased sharply across all age groups compared with 2019. This shift aligns with the early COVID-19 outbreak, when PCR testing requirements and the high infection risk on public transportation led many people to avoid subways and buses. As a result, cycling became a safer and more reliable way to commute, travel to testing sites. These pandemic-driven changes persisted throughout the rest of 2020.
