@@ -1,0 +1,18 @@
+---
+title: "About myself"
+output: 
+  html_document:
+    theme: flatly
+---
+
+![](profile.jpg)
+
+## Education
+
+I am currently a first year masters student studying Biostatistics in Columbia University, Mailman School of Public Health. I was graduated from National Taiwan University in 2023 with a bachelor degree in Public Health.
+
+My research experience includes working as a research assistant in the Taiwan Lung Cancer Society from 2024 to 2025. I was involved in a nationwide non-smoking lung cancer prospective study, where I utilized R and SAS for data cleansing, multivariate regression analysis and visualizing results.
+
+For more details please check my [resume](resume.pdf)
+
+Go back to the [homepage](index.html)

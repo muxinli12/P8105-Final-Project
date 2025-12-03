@@ -1,0 +1,15 @@
+---
+title: "The Pulse of the City: An Analysis of COVID-19's Impact on NYC Citi Bike User Behavior and Geospatial Patterns, 2019 vs 2020"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+---
+![](Citibike-COVID.jpg)
+
+# About
+Citi Bike is a privately owned public bicycle sharing system in New York serving the New York City boroughs of the Bronx, Brooklyn, Manhattan, and Queens, as well as Jersey City and Hoboken, New Jersey.
+
+# Motivation
+The COVID-19 pandemic profoundly disrupted commuting and lifestyle patterns. Many people avoided enclosed public transit and turned to private or semi-private options. As an open-air, flexible system, Citi Bike offers a valuable lens to observe these shifts.
