@@ -1,14 +1,9 @@
 ---
 title: "About myself"
 output: 
-  bslib::html_document:
-    theme: 
-      bootswatch: sketchy 
-      version: 5
+  html_document:
+    theme: sandstone
 ---
-
-![](profile.jpg)
-
 ## Education
 
 I am currently a first year masters student studying Biostatistics in Columbia University, Mailman School of Public Health. I was graduated from National Taiwan University in 2023 with a bachelor degree in Public Health.

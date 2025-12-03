@@ -15,6 +15,4 @@ navbar:
       href: http://github.com/Bis-the-nub/citibike
 output:
   html_document:
-    theme:
-      bootswatch: sketchy
-      version: 5
+    theme: sandstone

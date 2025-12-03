@@ -1,10 +1,8 @@
 ---
 title: "Here are some plots"
 output: 
-  bslib::html_document:  
-    theme: 
-      bootswatch: sketchy 
-      version: 5
+  html_document: 
+    theme: sandstone
 ---
 
 We often make plots in data science.
