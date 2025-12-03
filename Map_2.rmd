@@ -8,7 +8,7 @@ date: "2025-12-03"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, message = FALSE}
 library(readr)
 library(tidyverse)
 library(dplyr)
@@ -33,7 +33,7 @@ map_data = data |>
   filter(start_longitude < -74.02, end_longitude < -74.02)
 ```
 
-```{r}
+```{r, warning = FALSE}
 station_counts = map_data |>
   group_by(end_latitude, end_longitude) |>
   summarise(
@@ -77,7 +77,7 @@ leaflet(start_station_counts_2019) |>
   )
 ```
 
-```{r}
+```{r, warning = FALSE}
 #end stations
 end_station_counts_2019 = map_data |>
   filter(year == 2019) |> 
@@ -105,7 +105,7 @@ leaflet(end_station_counts_2019) |>
   )
 ```
 
-```{r}
+```{r, warning = FALSE}
 # 2020
 
 # start stations
@@ -135,7 +135,7 @@ leaflet(start_station_counts_2020) |>
 
 ```
 
-```{r}
+```{r, warning = FALSE}
 #2020
 #end stations
 end_station_counts_2020 = map_data |>
@@ -164,7 +164,7 @@ leaflet(end_station_counts_2020) |>
   )
 
 ```
-```{r}
+```{r, message = FALSE}
 library(leaflet)
 library(dplyr)
 library(viridisLite)
