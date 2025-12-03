@@ -9,11 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Muxin Li" />
 
-<meta name="date" content="2025-12-03" />
 
-<title>final_project_muxin</title>
+<title>Riding Distance</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -31,7 +29,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
@@ -220,7 +222,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -230,6 +298,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -277,29 +355,35 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">final_project_muxin</h1>
-<h4 class="author">Muxin Li</h4>
-<h4 class="date">2025-12-03</h4>
+
+<h1 class="title toc-ignore">Riding Distance</h1>
 
 </div>
 
 
-<p>Behavior pattern based on age ranges 2019 vs 2020 (code) Riding
-distance plot 2019-2020 per month (code)</p>
+<p>I ride, you ride, he rides, she rides.</p>
 <pre class="r"><code>library(tidyverse)
-library(geosphere)</code></pre>
-<pre class="r"><code>bike_df=read.csv(&quot;data/bike_data_combined.csv&quot;)
+library(geosphere)
 
-bike_year_distance=
-  bike_df|&gt;
+bike_df = read_csv(&quot;data/bike_data_combined.csv&quot;)
+
+bike_year_distance =
+  bike_df |&gt;
   mutate(
-    age=year-birth_year,
+    age = year - birth_year,
     distance_m = distHaversine(
       cbind(start_station_longitude, start_station_latitude),
-      cbind(end_station_longitude,   end_station_latitude)))|&gt;
-  mutate(distance_km = distance_m / 1000)|&gt;
+      cbind(end_station_longitude,   end_station_latitude))) |&gt;
+  mutate(distance_km = distance_m / 1000) |&gt;
   mutate(
     age_group = cut(
       age,
@@ -307,21 +391,21 @@ bike_year_distance=
       labels = c(&quot;&lt;18&quot;, &quot;18–29&quot;, &quot;30–49&quot;, &quot;50–64&quot;, &quot;65+&quot;),
       right = TRUE
     )
-  )|&gt;
-  filter(age_group!=&quot;&lt;18&quot;&amp; age_group!=&quot;65+&quot;)|&gt;
-  select(year,month,tripduration,age_group,distance_km,distance_m)</code></pre>
-<pre class="r"><code>bike_time=bike_year_distance|&gt;
+  ) |&gt;
+  filter(age_group != &quot;&lt;18&quot; &amp; age_group != &quot;65+&quot;) |&gt;
+  select(year,month,tripduration,age_group,distance_km,distance_m)
+
+bike_time = bike_year_distance |&gt;
   mutate(year = factor(year),
          month = factor(
       month,
       levels = c(&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;,
                  &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;)
-    ))|&gt;
-  group_by(year,month,age_group)|&gt;
-  summarise(time=mean(tripduration))</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You
-## can override using the `.groups` argument.</code></pre>
-<pre class="r"><code>ggplot(bike_time, 
+    )) |&gt;
+  group_by(year,month,age_group) |&gt;
+  summarise(time = mean(tripduration))
+
+ggplot(bike_time, 
        aes(x = age_group, y = time, color = year, group = year)) +
   geom_line(linewidth = 1.1) +
   geom_point(size = 2.8) +
@@ -336,7 +420,7 @@ bike_year_distance=
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
   )</code></pre>
-<p><img src="final_project_muxin_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="riding-bike_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(
   bike_time,
   aes(x = month, y = time, color = age_group, group = age_group)
@@ -354,21 +438,19 @@ bike_year_distance=
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
   )</code></pre>
-<p><img src="final_project_muxin_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>12个月对比</p>
-<pre class="r"><code>bike_distance=bike_year_distance|&gt;
-  filter(distance_km&lt;100 &amp; distance_km&gt;0)|&gt;
+<p><img src="riding-bike_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>bike_distance = bike_year_distance |&gt;
+  filter(distance_km &lt; 100 &amp; distance_km &gt; 0) |&gt;
   mutate(year = factor(year),
          month = factor(
       month,
       levels = c(&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;,
                  &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;)
-    ))|&gt;
-  group_by(year,month,age_group)|&gt;
-  summarise(distance=mean(distance_m))</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;, &#39;month&#39;. You
-## can override using the `.groups` argument.</code></pre>
-<pre class="r"><code>ggplot(bike_distance,
+    )) |&gt;
+  group_by(year,month,age_group) |&gt;
+  summarise(distance = mean(distance_m))
+
+ggplot(bike_distance,
        aes(x = age_group, y = distance, color = year, group = year)) +
   geom_line(linewidth = 1.1) +
   geom_point(size = 2.8) +
@@ -383,10 +465,10 @@ bike_year_distance=
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
   )</code></pre>
-<p><img src="final_project_muxin_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<pre class="r"><code>bike_distance=
-  bike_distance|&gt;
-  filter(age_group!=&quot;&lt;18&quot;&amp; age_group!=&quot;65+&quot;)
+<p><img src="riding-bike_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>bike_distance =
+  bike_distance |&gt;
+  filter(age_group != &quot;&lt;18&quot; &amp; age_group != &quot;65+&quot;)
 
 ggplot(
   bike_distance,
@@ -405,17 +487,22 @@ ggplot(
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
   )</code></pre>
-<p><img src="final_project_muxin_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>summary: Beginning in March–April 2020, both riding distance and
-riding time increased sharply across all age groups compared with 2019.
-This shift aligns with the early COVID-19 outbreak, when PCR testing
-requirements and the high infection risk on public transportation led
-many people to avoid subways and buses. As a result, cycling became a
-safer and more reliable way to commute, travel to testing sites. These
-pandemic-driven changes persisted throughout the rest of 2020.</p>
+<p><img src="riding-bike_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>Beginning in March–April 2020, both riding distance and riding time
+increased sharply across all age groups compared with 2019. This shift
+aligns with the early COVID-19 outbreak, when PCR testing requirements
+and the high infection risk on public transportation led many people to
+avoid subways and buses. As a result, cycling became a safer and more
+reliable way to commute, travel to testing sites. These pandemic-driven
+changes persisted throughout the rest of 2020.</p>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -447,7 +534,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -3,8 +3,8 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "Why citi bike" 
-      href: about.html
+    - text: "Bikes and Age" 
+      href: riding-bike.html
     - text: "Plotly plots"
       href: plotly.html
     - text: "Flexdashboard"
