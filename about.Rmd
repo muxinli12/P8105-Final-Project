@@ -1,8 +1,10 @@
 ---
 title: "About myself"
 output: 
-  html_document:
-    theme: flatly
+  bslib::html_document:
+    theme: 
+      bootswatch: sketchy 
+      version: 5
 ---
 
 ![](profile.jpg)

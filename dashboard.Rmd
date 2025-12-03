@@ -4,7 +4,9 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
-    theme: flatly
+    theme: 
+      bootswatch: sketchy 
+      version: 5
 ---
 
 ```{r setup, include=FALSE}
