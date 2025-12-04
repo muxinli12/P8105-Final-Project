@@ -80,7 +80,8 @@ Column {data-width=650}
 
 ### Chart A
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE}
+library(shiny)
 
 
 renderLeaflet({
@@ -115,21 +116,64 @@ renderLeaflet({
 
   bins <- quantile(
     station_counts$n_trips,
-    probs = seq(0, 1, length.out = 6),
+    probs = seq(0, 1, length.out = 8),
     na.rm = TRUE
   )
-
+  
   pal <- colorBin(
-    palette = c("green", "yellow", "orange", "red", "darkred"),
+    palette = c("#4292C6", "#9ECAE1", "#DEEBF7" , "#FFFFBF", "#FDAE61", "#F46D43", "#D73027"),
     domain  = station_counts$n_trips,
     bins    = bins,
     pretty  = FALSE
   )
+  
+  # Square icon
+  svg_content <- paste0(
+    '<svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">',
+    '<rect x="0" y="0" width="10" height="10" ',
+    'style="fill:#228B22;" />', 
+    '</svg>'
+)
+  
+  encoded_svg <- URLencode(svg_content, reserved = TRUE)
+  square_icon <- makeIcon(
+      iconUrl = paste0('data:image/svg+xml;charset=UTF-8,', encoded_svg),
+      iconWidth = 8,
+      iconHeight = 8,
+      iconAnchorX = 5, 
+      iconAnchorY = 5
+  )
+    
 
   leaflet(station_counts) |>
     addTiles() |>
     setView(lng = -74.051, lat = 40.7203, zoom = 14) |>
+    
+    
+     addMarkers(
+      data = covid_19_testing_centers,
+      lng = ~longitude,
+      lat = ~latitude,
+      icon = square_icon, 
+      label = ~location_name,
+      group = "COVID Centers"
+  ) |>
 
+    addAwesomeMarkers(
+        data = NJ_medical_centers,
+        lng = ~longitude,
+        lat = ~latitude,
+        
+        icon = awesomeIcons(
+            icon = "plus",      # Medical sign
+            iconColor = "red",
+            markerColor = "white", 
+            library = "fa"
+        ),
+        label = ~name,
+        group = "Medical Centers"
+    ) |> 
+    
     addCircleMarkers(
       lng = ~long,
       lat = ~lat,
@@ -140,26 +184,7 @@ renderLeaflet({
       label = ~paste("Trips:", n_trips),
       group = "Bike Stations"
     ) |>
-
-    addCircleMarkers(
-      data = covid_19_testing_centers,
-      lng = ~longitude,
-      lat = ~latitude,
-      radius = 4,
-      fillColor = "darkblue",
-      fillOpacity = 0.9,
-      stroke = FALSE,
-      label = ~location_name,
-      group = "COVID Centers"
-    ) |>
-
-    addMarkers(
-      data = NJ_medical_centers,
-      lng = ~longitude,
-      lat = ~latitude,
-      label = ~name,
-      group = "Medical Centers"
-    ) |>
+    
     
     addLegend(
       pal    = pal,
