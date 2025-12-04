@@ -6,7 +6,7 @@ output:
     toc_float: true
     theme: sandstone
 ---
-![](Citibike-COVID.jpg)
+![](images/Citibike-COVID.jpg){height=75%, width=75%}
 
 # About
 Citi Bike is a privately owned public bicycle sharing system in New York serving the New York City boroughs of the Bronx, Brooklyn, Manhattan, and Queens, as well as Jersey City and Hoboken, New Jersey.

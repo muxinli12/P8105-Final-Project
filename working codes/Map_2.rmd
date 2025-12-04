@@ -1,0 +1,471 @@
+---
+title: "Map-2"
+output: github_document
+date: "2025-12-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message = FALSE}
+library(readr)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(leaflet)
+library(crosstalk)
+library(rvest)
+library(httr)
+library(plotly)
+
+
+data = read.csv("data/bike_data_combined.csv")
+
+map_data = data |>
+  select(
+    month,
+    year,
+    start_latitude = start_station_latitude, 
+    start_longitude = start_station_longitude,
+    end_latitude = end_station_latitude, 
+    end_longitude = end_station_longitude) |>
+  filter(start_longitude < -74.02, end_longitude < -74.02)
+```
+
+```{r, warning = FALSE}
+station_counts = map_data |>
+  group_by(end_latitude, end_longitude) |>
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  )
+
+pal = colorBin(
+  palette = "Spectral",
+  domain  = station_counts$n_trips,
+  bins    = 13,       
+  pretty  = FALSE
+)
+
+
+# 2019 
+
+# start stations
+start_station_counts_2019 = map_data |>
+  filter(year == 2019) |> 
+  group_by(start_latitude, start_longitude) |>
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  )
+leaflet(start_station_counts_2019) |>
+  addTiles() |>
+  setView(lng = -74.006, lat = 40.7128, zoom = 11) |>
+  addCircleMarkers(
+    ~start_longitude, ~start_latitude,
+    radius      = 8,
+    stroke      = FALSE,
+    fillColor   = ~pal(n_trips),
+    fillOpacity = 0.8,
+    label       = ~as.character(n_trips),
+    labelOptions = labelOptions(
+      direction = "top",
+      offset    = c(0, -5),
+      textsize  = "10px"
+    )
+  )
+```
+
+```{r, warning = FALSE}
+#end stations
+end_station_counts_2019 = map_data |>
+  filter(year == 2019) |> 
+  group_by(end_latitude, end_longitude) |>
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  )
+
+leaflet(end_station_counts_2019) |>
+  addTiles() |>
+  setView(lng = -74.006, lat = 40.7128, zoom = 11) |>
+  addCircleMarkers(
+    ~end_longitude, ~end_latitude,
+    radius      = 8,
+    stroke      = FALSE,
+    fillColor   = ~pal(n_trips),
+    fillOpacity = 0.8,
+    label       = ~as.character(n_trips),
+    labelOptions = labelOptions(
+      direction = "top",
+      offset    = c(0, -5),
+      textsize  = "10px"
+    )
+  )
+```
+
+```{r, warning = FALSE}
+# 2020
+
+# start stations
+start_station_counts_2020 = map_data |>
+  filter(year == 2020) |> 
+  group_by(start_latitude, start_longitude) |>
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  )
+leaflet(start_station_counts_2020) |>
+  addTiles() |>
+  setView(lng = -74.006, lat = 40.7128, zoom = 11) |>
+  addCircleMarkers(
+    ~start_longitude, ~start_latitude,
+    radius      = 8,
+    stroke      = FALSE,
+    fillColor   = ~pal(n_trips),
+    fillOpacity = 0.8,
+    label       = ~as.character(n_trips),
+    labelOptions = labelOptions(
+      direction = "top",
+      offset    = c(0, -5),
+      textsize  = "10px"
+    )
+  )
+
+```
+
+```{r, warning = FALSE}
+#2020
+#end stations
+end_station_counts_2020 = map_data |>
+  filter(year == 2020) |> 
+  group_by(end_latitude, end_longitude) |>
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  )
+
+leaflet(end_station_counts_2020) |>
+  addTiles() |>
+  setView(lng = -74.006, lat = 40.7128, zoom = 11) |>
+  addCircleMarkers(
+    ~end_longitude, ~end_latitude,
+    radius      = 8,
+    stroke      = FALSE,
+    fillColor   = ~pal(n_trips),
+    fillOpacity = 0.8,
+    label       = ~as.character(n_trips),
+    labelOptions = labelOptions(
+      direction = "top",
+      offset    = c(0, -5),
+      textsize  = "10px"
+    )
+  )
+
+```
+```{r, message = FALSE}
+library(leaflet)
+library(dplyr)
+library(viridisLite)
+
+covid_19_testing_centers = read_delim("data/covid_19_testing_centers.csv", delim = ";") |> 
+  janitor::clean_names() |> 
+  select(latitude, longitude, location_name) |>
+  filter(longitude < -74.02, longitude > -74.08 , latitude < 40.75 , latitude > 40.71)
+
+NJ_medical_centers = read_csv("data/NJ_medical_center.csv")
+
+station_counts = map_data |>
+  group_by(end_latitude, end_longitude) |>
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  )
+
+bins = quantile(station_counts$n_trips,
+                 probs = seq(0, 1, length.out = 6),
+                 na.rm = TRUE)
+
+pal = colorBin(
+  palette = c("green", "yellow", "orange", "red", "darkred"),
+  domain  = station_counts$n_trips,
+  bins    = bins,
+  pretty  = FALSE
+)
+```
+```{r}
+# start station 2019
+
+start_station_counts_2019 = map_data %>%
+  filter(year == 2019) %>% 
+  group_by(start_latitude, start_longitude) %>%
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  ) 
+
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng = -74.006, lat = 40.7128, zoom = 11) %>%
+
+  # Layer 1
+  addCircleMarkers(
+    data = start_station_counts_2019,
+    lng = ~start_longitude,
+    lat = ~start_latitude,
+    radius = 7,
+    fillColor = ~pal(n_trips),
+    fillOpacity = 0.8,
+    stroke = FALSE,
+    label = ~paste("Trips:", n_trips),
+    group = "Bike Stations"
+  ) %>%
+
+  # Layer 2
+  addCircleMarkers(
+    data = covid_19_testing_centers,
+    lng = ~longitude,
+    lat = ~latitude,
+    radius = 4,
+    fillColor = "darkblue",
+    fillOpacity = 0.9,
+    stroke = FALSE,
+    label = ~location_name,
+    group = "COVID Centers"
+  ) %>%
+  
+  # Layer3
+  addMarkers(
+    data = NJ_medical_centers,
+    lng = ~longitude,
+    lat = ~latitude,
+    label = ~name,
+    group = "Medical Centers"
+  ) %>%
+
+  addLegend(
+    pal = pal,
+    values = start_station_counts_2019$n_trips,
+    title = "Start Stations (2019)",
+    opacity = 1
+  ) %>%
+
+  addLayersControl(
+    overlayGroups = c("Bike Stations", "COVID Centers", "Medical Centers"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+
+```
+```{r}
+# start station 2020
+
+start_station_counts_2020 = map_data %>%
+  filter(year == 2020) %>% 
+  group_by(start_latitude, start_longitude) %>%
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  ) 
+
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng = -74.006, lat = 40.7128, zoom = 11) %>%
+
+  # Layer 1
+  addCircleMarkers(
+    data = start_station_counts_2020,
+    lng = ~start_longitude,
+    lat = ~start_latitude,
+    radius = 7,
+    fillColor = ~pal(n_trips),
+    fillOpacity = 0.8,
+    stroke = FALSE,
+    label = ~paste("Trips:", n_trips),
+    group = "Bike Stations"
+  ) %>%
+
+  # Layer 2
+  addCircleMarkers(
+    data = covid_19_testing_centers,
+    lng = ~longitude,
+    lat = ~latitude,
+    radius = 4,
+    fillColor = "darkblue",
+    fillOpacity = 0.9,
+    stroke = FALSE,
+    label = ~location_name,
+    group = "COVID Centers"
+  ) %>%
+  
+  # Layer3
+  addMarkers(
+    data = NJ_medical_centers,
+    lng = ~longitude,
+    lat = ~latitude,
+    label = ~name,
+    group = "Medical Centers"
+  ) %>%
+
+  addLegend(
+    pal = pal,
+    values = end_station_counts_2020$n_trips,
+    title = "Start Stations (2020)",
+    opacity = 1
+  ) %>%
+
+  addLayersControl(
+    overlayGroups = c("Bike Stations", "COVID Centers", "Medical Centers"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+
+```
+
+```{r}
+# end station 2019
+
+
+end_station_counts_2019 = map_data %>%
+  filter(year == 2019) %>% 
+  group_by(end_latitude, end_longitude) %>%
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  ) 
+
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng = -74.006, lat = 40.7128, zoom = 11) %>%
+
+  # Layer 1
+  addCircleMarkers(
+    data = end_station_counts_2019,
+    lng = ~end_longitude,
+    lat = ~end_latitude,
+    radius = 7,
+    fillColor = ~pal(n_trips),
+    fillOpacity = 0.8,
+    stroke = FALSE,
+    label = ~paste("Trips:", n_trips),
+    group = "Bike Stations"
+  ) %>%
+
+  # Layer 2
+  addCircleMarkers(
+    data = covid_19_testing_centers,
+    lng = ~longitude,
+    lat = ~latitude,
+    radius = 4,
+    fillColor = "darkblue",
+    fillOpacity = 0.9,
+    stroke = FALSE,
+    label = ~location_name,
+    group = "COVID Centers"
+  ) %>%
+  
+  # Layer3
+  addMarkers(
+    data = NJ_medical_centers,
+    lng = ~longitude,
+    lat = ~latitude,
+    label = ~name,
+    group = "Medical Centers"
+  ) %>%
+
+  addLegend(
+    pal = pal,
+    values = end_station_counts_2019$n_trips,
+    title = "End Stations (2019)",
+    opacity = 1
+  ) %>%
+
+  addLayersControl(
+    overlayGroups = c("Bike Stations", "COVID Centers", "Medical Centers"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+
+```
+
+```{r}
+# end station 2020
+end_station_counts_2020 = map_data %>%
+  filter(year == 2020) %>% 
+  group_by(end_latitude, end_longitude) %>%
+  summarise(
+    n_trips = n(),
+    .groups = "drop"
+  ) 
+
+bins = quantile(station_counts$n_trips,
+                 probs = seq(0, 1, length.out = 6),
+                 na.rm = TRUE)
+
+pal = colorBin(
+  palette = c("green", "yellow", "orange", "red", "darkred"),
+  domain  = station_counts$n_trips,
+  bins    = bins,
+  pretty  = FALSE
+)
+
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng = -74.006, lat = 40.7128, zoom = 11) %>%
+
+  # Layer 1
+  addCircleMarkers(
+    data = end_station_counts_2020,
+    lng = ~end_longitude,
+    lat = ~end_latitude,
+    radius = 7,
+    fillColor = ~pal(n_trips),
+    fillOpacity = 0.8,
+    stroke = FALSE,
+    label = ~paste("Trips:", n_trips),
+    group = "Bike Stations"
+  ) %>%
+
+  # Layer 2
+  addCircleMarkers(
+    data = covid_19_testing_centers,
+    lng = ~longitude,
+    lat = ~latitude,
+    radius = 4,
+    fillColor = "darkblue",
+    fillOpacity = 0.9,
+    stroke = FALSE,
+    label = ~location_name,
+    group = "COVID Centers"
+  ) %>%
+  
+  # Layer3
+  addMarkers(
+    data = NJ_medical_centers,
+    lng = ~longitude,
+    lat = ~latitude,
+    label = ~name,
+    group = "Medical Centers"
+  ) %>%
+
+  addLegend(
+    pal = pal,
+    values = end_station_counts_2020$n_trips,
+    title = "End Stations (2020)",
+    opacity = 1
+  ) %>%
+
+  addLayersControl(
+    overlayGroups = c("Bike Stations", "COVID Centers", "Medical Centers"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+
+
+```
+
+
+
+
+

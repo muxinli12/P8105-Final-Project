@@ -11,7 +11,7 @@
 
 
 
-<title>Riding Time and distance</title>
+<title>Riding Time and distance between different age group</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -333,6 +333,9 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="our dataset.html">Data Cleaning</a>
+</li>
+<li>
   <a href="riding-bike.html">Bikes and Age</a>
 </li>
 <li>
@@ -367,12 +370,28 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Riding Time and distance</h1>
+<h1 class="title toc-ignore">Riding Time and distance between different
+age group</h1>
 
 </div>
 
 
-<p>I ride, you ride, he rides, she rides.</p>
+<p><img src="images/riding%20age.jpg" style="width:75.0%" /></p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This part examines how riding behaviors in Jersey City changed before
+and during the COVID-19 pandemic. Using trip-level data, we evaluate two
+key behavioral indicators—riding time and riding distance—across
+different age groups(from 18 to 64) and months. The analysis highlights
+how mobility patterns shifted in response to the pandemic, particularly
+when PCR testing requirements, reduced subway usage, and the high
+perceived infection risk on public transportation increased reliance on
+cycling as a safer and more flexible mode of travel. By comparing
+monthly trends across years and age groups, we aim to understand how
+public-health disruptions influenced urban transportation behavior.</p>
+</div>
+<div id="figure-1-and-2" class="section level2">
+<h2>Figure 1 and 2</h2>
 <pre class="r"><code>library(tidyverse)
 library(geosphere)
 
@@ -443,6 +462,15 @@ ggplot(bike_time,
     axis.text.x = element_text(angle = 40, hjust = 1)
   )</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The two plots show that riding time increased across all age groups
+in 2020, especially during April–July, compared with the same months in
+2019. The increase is largest for the 50–64 group, indicating greater
+avoidance of public transit among older adults during the early
+pandemic. All age groups show sustained increases throughout 2020,
+suggesting broader shifts toward outdoor and low-risk travel.</p>
+</div>
+<div id="figure-3-and-4" class="section level2">
+<h2>Figure 3 and 4</h2>
 <pre class="r"><code>bike_distance = bike_year_distance |&gt;
   filter(distance_km &lt; 100 &amp; distance_km &gt; 0) |&gt;
   mutate(year = factor(year),
@@ -459,7 +487,7 @@ ggplot(bike_distance,
   geom_col(position = &quot;dodge&quot;) +
   facet_wrap(~ month, ncol = 4) +
   labs(
-    title = &quot;Monthly Comparison of Riding Distance Across Age Groups (2019 vs 2020)&quot;,
+    title = &quot;Monthly Comparison of Riding Distance Across Age Groups \n(2019 vs 2020)&quot;,
     x = &quot;Age Group&quot;,
     y = &quot;Average Riding Distance (m)&quot;,
     fill = &quot;Year&quot;
@@ -487,6 +515,17 @@ ggplot(bike_distance,
     axis.text.x = element_text(angle = 40, hjust = 1)
   )</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Riding distance in 2020 is consistently higher than in 2019 across
+all age groups and nearly all months. The most pronounced increases
+occur during April–August, when many residents replaced subway and bus
+travel with longer bike trips for commuting, testing visits, and outdoor
+activities. The patterns are similar across age groups, demonstrating a
+city-wide behavioral shift. The line chart shows all groups experience a
+sharp rise beginning in March–April 2020, matching the timing of
+COVID-19 disruptions. Distances remain elevated through late 2020,
+illustrating how cycling became a sustained alternative to public
+transportation during the pandemic.</p>
+</div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
 <p>Beginning in March–April 2020, both riding distance and riding time
@@ -494,8 +533,12 @@ increased sharply across all age groups compared with 2019. This shift
 aligns with the early COVID-19 outbreak, when PCR testing requirements
 and the high infection risk on public transportation led many people to
 avoid subways and buses. As a result, cycling became a safer and more
-reliable way to commute, travel to testing sites. These pandemic-driven
-changes persisted throughout the rest of 2020.</p>
+reliable way to travel to testing sites and other places. Across age
+groups, older riders tended to have longer riding times but shorter
+distances, indicating slower cycling speeds, whereas younger riders
+showed shorter times but longer distances, reflecting faster riding
+speeds. These pandemic-driven changes persisted throughout the rest of
+2020.</p>
 </div>
 
 
