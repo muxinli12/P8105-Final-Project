@@ -2,18 +2,48 @@
 title: "Citi Bike station map in Jersey City"
 output: 
   flexdashboard::flex_dashboard:
+    code_folding: hide
     orientation: columns
     vertical_layout: fill
 runtime: shiny
 ---
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
 library(flexdashboard)
 ```
 
 Column {.sidebar}
 -----------------------------------------------------------------------
 
-```{r}
+```{r, echo=FALSE}
+library(readr)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(leaflet)
+library(crosstalk)
+library(rvest)
+library(httr)
+library(plotly)
+library(shiny)
+
+data = read.csv("data/bike_data_combined.csv")
+
+map_data = data |>
+  select(
+    month,
+    year,
+    start_latitude = start_station_latitude, 
+    start_longitude = start_station_longitude,
+    end_latitude = end_station_latitude, 
+    end_longitude = end_station_longitude) |>
+  filter(start_longitude < -74.02, end_longitude < -74.02)
+
+covid_19_testing_centers = read_delim("data/covid_19_testing_centers.csv", delim = ";") |> 
+  janitor::clean_names() |> 
+  select(latitude, longitude, location_name) |>
+  filter(longitude < -74.02, longitude > -74.08 , latitude < 40.75 , latitude > 40.71)
+
+NJ_medical_centers = read_csv("data/NJ_medical_center.csv")
 
 ```
 
@@ -22,6 +52,125 @@ Column {data-width=650}
 
 ### Chart A
 
-```{r}
+```{r, echo=FALSE}
+library(shiny)
+
+selectInput(
+  "years", 
+  label   = h3("Year"),
+  choices = c("2019", "2020"),
+  selected = "2019"
+)
+
+sliderInput(
+  "months",
+  label   = h3("Month"),
+  min     = 1,
+  max     = 12,
+  value   = 1,
+  step    = 1,
+  animate = TRUE
+)
+
+selectInput(
+  "stations", 
+  label   = h3("Stations"),
+  choices = c("start", "end"),
+  selected = "start"
+)
+
+renderLeaflet({
+  req(input$years, input$months, input$stations)
+
+  year_sel  <- as.integer(input$years)
+  month_sel <- month.abb[input$months]
+  
+  if (input$stations == "start") {
+    lat_col      <- "start_latitude"
+    long_col     <- "start_longitude"
+    legend_title <- "Start Stations"
+  } else {
+    lat_col      <- "end_latitude"
+    long_col     <- "end_longitude"
+    legend_title <- "End Stations"
+  }
+
+  station_counts <- map_data |>
+    filter(
+      year  == year_sel,
+      month == month_sel
+    ) |>
+    group_by(
+      lat  = .data[[lat_col]],
+      long = .data[[long_col]]
+    ) |>
+    summarise(
+      n_trips = n(),
+      .groups = "drop"
+    )
+
+  bins <- quantile(
+    station_counts$n_trips,
+    probs = seq(0, 1, length.out = 6),
+    na.rm = TRUE
+  )
+
+  pal <- colorBin(
+    palette = c("green", "yellow", "orange", "red", "darkred"),
+    domain  = station_counts$n_trips,
+    bins    = bins,
+    pretty  = FALSE
+  )
+
+  leaflet(station_counts) |>
+    addTiles() |>
+    setView(lng = -74.051, lat = 40.7203, zoom = 14) |>
+
+    addCircleMarkers(
+      lng = ~long,
+      lat = ~lat,
+      radius = 7,
+      fillColor = ~pal(n_trips),
+      fillOpacity = 0.8,
+      stroke = FALSE,
+      label = ~paste("Trips:", n_trips),
+      group = "Bike Stations"
+    ) |>
+
+    addCircleMarkers(
+      data = covid_19_testing_centers,
+      lng = ~longitude,
+      lat = ~latitude,
+      radius = 4,
+      fillColor = "darkblue",
+      fillOpacity = 0.9,
+      stroke = FALSE,
+      label = ~location_name,
+      group = "COVID Centers"
+    ) |>
+
+    addMarkers(
+      data = NJ_medical_centers,
+      lng = ~longitude,
+      lat = ~latitude,
+      label = ~name,
+      group = "Medical Centers"
+    ) |>
+    
+    addLegend(
+      pal    = pal,
+      values = station_counts$n_trips,
+      title  = legend_title,
+      opacity = 1
+    ) |>
+    
+    addLayersControl(
+      overlayGroups = c("Bike Stations", "COVID Centers", "Medical Centers"),
+      options = layersControlOptions(collapsed = FALSE)
+    )
+})
+
+
+# end station 2020
 
 ```
