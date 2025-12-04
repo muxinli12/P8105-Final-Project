@@ -1,0 +1,13 @@
+name: plotly
+title: plotly
+username: innerlooop
+account: innerlooop
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 16243224
+bundleId: 11276133
+url: https://innerlooop.shinyapps.io/plotly/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: _site.yml|.RData|authors.html|authors.Rmd|dashboard.html|dashboard.Rmd|index.html|index.Rmd|our dataset.Rmd|our-dataset.html|README.md|riding bike.Rmd|riding-bike_files/figure-html/unnamed-chunk-1-1.png|riding-bike_files/figure-html/unnamed-chunk-2-1.png|riding-bike_files/figure-html/unnamed-chunk-3-1.png|riding-bike_files/figure-html/unnamed-chunk-4-1.png|riding-bike.html|images|site_libs|working codes
