@@ -19,7 +19,8 @@ map_data <- data |>
     start_longitude = start_station_longitude,
     end_latitude = end_station_latitude, 
     end_longitude = end_station_longitude) |>
-  filter(start_longitude < -74.02, end_longitude < -74.02)
+  filter(start_longitude < -74.02, end_longitude < -74.02) |>
+  filter(year == 2020, month == "Apr")
 
 station_counts <- map_data |>
   group_by(end_latitude, end_longitude) |>

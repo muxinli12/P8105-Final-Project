@@ -118,7 +118,7 @@ start_station_counts_2020 = map_data |>
   )
 leaflet(start_station_counts_2020) |>
   addTiles() |>
-  setView(lng = -74.006, lat = 40.7128, zoom = 11) |>
+  setView(lng = -74.051, lat = 40.7203, zoom = 11) |>
   addCircleMarkers(
     ~start_longitude, ~start_latitude,
     radius      = 8,
