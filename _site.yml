@@ -8,7 +8,7 @@ navbar:
       href: authors.html
   right:
     - text: "Data Cleaning" 
-      href: our dataset.html
+      href: our-dataset.html
     - text: "Bikes and Age" 
       href: riding-bike.html
     - text: "Plotly plots"
