@@ -11,7 +11,8 @@ output:
 ![](images/data cleaning.gif)
 
 ## Citibike Database
-As the Citibike system data provides monthly database only, we merged all 12 months and two years worth of data into one single database.
+As the Citibike system data provides monthly database only, we merged all 12 months and two years worth of data into one single database, while filtering variables that are useful to our analysis. The merged data consists of over 700k ride histories, with crucial variables such as trip duration, start and end timestamps, station names, bike type, and rider demographics. Station names are also being provided with spatial coordinates, which plays an important role in our plotting.
+
 ```{r, message = FALSE}
 ## Loading necessary packages
 library(tidyverse)
