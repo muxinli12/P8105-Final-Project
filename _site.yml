@@ -16,7 +16,7 @@ navbar:
     - icon: fa-envelope fa-lg
       href: mailto:<dc3964@cumc.columbia.edu>
     - icon: fa-github fa-lg
-      href: http://github.com/Bis-the-nub/citibike
+      href: https://github.com/muxinli12/P8105-Final-Project
 output:
   html_document:
     theme: sandstone
