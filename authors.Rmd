@@ -8,6 +8,7 @@ output:
 ---
 
 ## Family guys
+Introducing the Columbia Biostatistics version of the Family guys!
 ![](images/family guy.jpg){width=75%}
 
 ### Yumeng Lu (Lois)

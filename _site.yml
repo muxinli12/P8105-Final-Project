@@ -11,7 +11,7 @@ navbar:
       href: our-dataset.html
     - text: "Bikes and Age" 
       href: riding-bike.html
-    - text: "Plotly plots"
+    - text: "Citi Bike in Jersey City"
       href: https://innerlooop.shinyapps.io/plotly/
     - icon: fa-envelope fa-lg
       href: mailto:<dc3964@cumc.columbia.edu>
