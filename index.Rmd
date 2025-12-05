@@ -9,10 +9,14 @@ output:
 ![](images/Citibike-COVID.jpg){height=75%, width=75%}
 
 # About
-Citi Bike is a privately owned public bicycle sharing system in New York serving the New York City boroughs of the Bronx, Brooklyn, Manhattan, and Queens, as well as Jersey City and Hoboken, New Jersey.
+Citi Bike is a privately owned public bicycle sharing system in New York City, serving the boroughs of the Bronx, Brooklyn, Manhattan, and Queens, as well as Jersey City and Hoboken in New Jersey. Launched in 2013, it has grown into one of the largest and busiest bike-share programs in the world, providing an affordable, convenient, and environmentally friendly transportation option for both residents and visitors.
 
 # Motivation
-The COVID-19 pandemic profoundly disrupted commuting and lifestyle patterns. Many people avoided enclosed public transit and turned to private or semi-private options. As an open-air, flexible system, Citi Bike offers a valuable lens to observe these shifts.
+The COVID-19 pandemic strongly changed how people commute and live day to day. Many avoided crowded, enclosed public transit like buses and subways, and instead turned to more open, individual options. As an outdoor and flexible system, Citi Bike is a good way to see these changes in behavior.
+
+In this project, we focus on how COVID-19 affected riding habits for users of different ages. We are especially interested in whether reduced use of public transit led to more Citi Bike trips and longer travel distances. In addition, we explore whether the locations of popular Citi Bike stations show any patterns similar to the locations of COVID-19 testing sites and hospitals.
+
+![](images/citibike_image2.jpg){height=90%, width=75%}
 
 # Data Sources
 [Citibike](https://citibikenyc.com/system-data): This data set provides comprehensive monthly downloadable files containing trip history for every ride taken. Key information includes trip duration, start and end times/dates, station names and IDs, bike type, and limited rider demographics like user type (Subscriber or Customer), gender, and year of birth. The data is processed to exclude short trips (under 60 seconds) and staff rides, making it ideal for analyzing riding patterns, station popularity, and geographical distribution of trips.

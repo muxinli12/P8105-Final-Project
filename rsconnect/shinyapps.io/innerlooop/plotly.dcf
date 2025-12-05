@@ -5,7 +5,7 @@ account: innerlooop
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 16243224
-bundleId: 11276133
+bundleId: 11276880
 url: https://innerlooop.shinyapps.io/plotly/
 version: 1
 asMultiple: FALSE
