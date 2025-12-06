@@ -339,6 +339,9 @@ div.tocify {
   <a href="riding-bike.html">Bikes and Age</a>
 </li>
 <li>
+  <a href="Conclusion.html">Conclusion</a>
+</li>
+<li>
   <a href="https://innerlooop.shinyapps.io/plotly/">Citi Bike in Jersey City</a>
 </li>
 <li>
@@ -394,6 +397,7 @@ public-health disruptions influenced urban transportation behavior.</p>
 <h2>Figure 1 and 2</h2>
 <pre class="r"><code>library(tidyverse)
 library(geosphere)
+library(patchwork)
 
 bike_df = read.csv(&quot;data/bike_data_combined.csv&quot;)
 
@@ -429,7 +433,8 @@ bike_time =
   group_by(year,month,age_group) |&gt;
   summarise(time = mean(tripduration))
 
-ggplot(bike_time, 
+biketime_plot1=
+  ggplot(bike_time, 
        aes(x = age_group, y = time, fill = year)) +
   geom_col(position = &quot;dodge&quot;) +
   facet_wrap(~ month, ncol = 4) +
@@ -442,9 +447,12 @@ ggplot(bike_time,
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
-  )</code></pre>
+  )
+
+biketime_plot1</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(
+<pre class="r"><code>biketime_plot2=
+  ggplot(
   bike_time,
   aes(x = month, y = time, color = age_group, group = age_group)
 ) +
@@ -460,7 +468,8 @@ ggplot(bike_time,
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
-  )</code></pre>
+  )
+biketime_plot2</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The two plots show that riding time increased across all age groups
 in 2020, especially during April–July, compared with the same months in
@@ -482,7 +491,8 @@ suggesting broader shifts toward outdoor and low-risk travel.</p>
   group_by(year,month,age_group) |&gt;
   summarise(distance = mean(distance_m))
 
-ggplot(bike_distance,
+bikedistance_plot1=
+  ggplot(bike_distance,
        aes(x = age_group, y = distance, fill = year)) +
   geom_col(position = &quot;dodge&quot;) +
   facet_wrap(~ month, ncol = 4) +
@@ -495,9 +505,12 @@ ggplot(bike_distance,
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
-  )</code></pre>
+  )
+
+bikedistance_plot1</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(
+<pre class="r"><code>bikedistance_plot2=
+  ggplot(
   bike_distance,
   aes(x = month, y = distance, color = age_group, group = age_group)
 ) +
@@ -513,8 +526,13 @@ ggplot(bike_distance,
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
-  )</code></pre>
+  )
+
+bikedistance_plot2</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>(biketime_plot2 / bikedistance_plot2) + plot_layout(heights = c(1, 1)) </code></pre>
+<p><img src="riding-bike_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<pre class="r"><code>ggsave(&quot;bike_time_distance_combined.png&quot;, width = 8, height = 10, dpi = 300)</code></pre>
 <p>Riding distance in 2020 is consistently higher than in 2019 across
 all age groups and nearly all months. The most pronounced increases
 occur during April–August, when many residents replaced subway and bus
