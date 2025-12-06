@@ -3,7 +3,7 @@ title: "Citi Bike station map in Jersey City"
 output: 
   flexdashboard::flex_dashboard:
     code_folding: hide
-    orientation: columns
+    orientation: rows
     vertical_layout: fill
 runtime: shiny
 ---
@@ -166,9 +166,8 @@ create_bike_map <- function(year_sel, input_months, input_stations) {
 }
 ```
 
-{.sidebar}
+Row {data-height=100}
 -----------------------------------------------------------------------
-
 ```{r, echo=FALSE, message=FALSE}
 
 sliderInput(
@@ -188,7 +187,10 @@ selectInput(
   selected = "start"
 )
 ```
-{data-width=500}
+Row {data-height=700}  
+-----------------------------------------------------------------------
+
+Column {data-width=1}  
 -----------------------------------------------------------------------
 ### 2019 Trip Counts
 ```{r, echo=FALSE, message=FALSE}
@@ -197,7 +199,7 @@ renderLeaflet({
   create_bike_map(2019, input$months, input$stations)
 })
 ```
-{data-width=500}
+Column {data-width=1} 
 -----------------------------------------------------------------------
 
 ### 2020 Trip Counts
@@ -208,7 +210,9 @@ renderLeaflet({
 })
 ```
 
----
+
+Row {data-height=100}  
+-----------------------------------------------------------------------
 
 ## City Bike Usage Trends and COVID-19 Correlation in Jersey City (2019 vs 2020)
 
