@@ -147,9 +147,13 @@ bikedistance_plot2=
 
 bikedistance_plot2
 
+```
+
+```{r, echo=FALSE, fig.show='hide'}
 (biketime_plot2 / bikedistance_plot2) + plot_layout(heights = c(1, 1)) 
 ggsave("bike_time_distance_combined.png", width = 8, height = 10, dpi = 300)
 ```
+
 
 Riding distance in 2020 is consistently higher than in 2019 across all age groups and nearly all months. The most pronounced increases occur during April–August, when many residents replaced subway and bus travel with longer bike trips for commuting, testing visits, and outdoor activities. The patterns are similar across age groups, demonstrating a city-wide behavioral shift. The line chart shows all groups experience a sharp rise beginning in March–April 2020, matching the timing of COVID-19 disruptions. Distances remain elevated through late 2020, illustrating how cycling became a sustained alternative to public transportation during the pandemic.
 
