@@ -14,7 +14,7 @@ navbar:
     - text: "Conclusion" 
       href: Conclusion.html
     - text: "Citi Bike in Jersey City"
-      href: https://innerlooop.shinyapps.io/plotly/
+      href: https://innerlooop.shinyapps.io/p8105_finalproj/
     - icon: fa-envelope fa-lg
       href: mailto:<dc3964@cumc.columbia.edu>
     - icon: fa-github fa-lg
