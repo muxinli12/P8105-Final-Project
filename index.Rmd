@@ -1,25 +1,52 @@
 ---
-title: "The Pulse of the City: An Analysis of COVID-19's Impact on Jersey City Citi Bike User Behavior and Geospatial Patterns, 2019 vs 2020"
+title: "The Pulse of the City: How COVID-19 Reshaped Citi Bike Commuting in Jersey City"
 output: 
   html_document:  
     toc: true
     toc_float: true
     theme: sandstone
 ---
+
+<style>
+body {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px; 
+  line-height: 1.3;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
+}
+</style>
+
+<br>
+
 ![](images/Citibike-COVID.jpg){height=75%, width=75%}
+
+<br>
 
 # About
 Citi Bike is a privately owned public bicycle sharing system in New York City, serving the boroughs of the Bronx, Brooklyn, Manhattan, and Queens, as well as Jersey City and Hoboken in New Jersey. Launched in 2013, it has grown into one of the largest and busiest bike-share programs in the world, providing an affordable, convenient, and environmentally friendly transportation option for both residents and visitors.
+
+<br>
 
 # Motivation
 The COVID-19 pandemic strongly changed how people commute and live day to day. Many avoided crowded, enclosed public transit like buses and subways, and instead turned to more open, individual options. As an outdoor and flexible system, Citi Bike is a good way to see these changes in behavior.
 
 In this project, we focus on how COVID-19 affected riding habits for users of different ages. We are especially interested in whether reduced use of public transit led to more Citi Bike trips and longer travel distances. In addition, we explore whether the locations of popular Citi Bike stations show any patterns similar to the locations of COVID-19 testing sites and hospitals.
 
+<br>
+
 ![](images/citibike_image2.jpg){height=90%, width=75%}
+
+<br>
 
 # Data Sources
 [Citibike](https://citibikenyc.com/system-data): This data set provides comprehensive monthly downloadable files containing trip history for every ride taken. Key information includes trip duration, start and end times/dates, station names and IDs, bike type, and limited rider demographics like user type (Subscriber or Customer), gender, and year of birth. The data is processed to exclude short trips (under 60 seconds) and staff rides, making it ideal for analyzing riding patterns, station popularity, and geographical distribution of trips.
 
-# Conclusion
-Based on our analysis result, we believe that COVID-19 changed people's commuting style in Jersey City. We have observed longer ride duration in all age groups, and increased bike rentals across stations. These evidences indicate that more people preferred commuting via Citi Bike instead of taking the bus or subway, as confined and crowded spaces became fertile grounds for the virus to spread.
+<br>
+
+# What Have We Done
+On this website, we examine how Citi Bike usage in Jersey City changed before and during COVID-19. We first analyze riding time and riding distance across three age groups (18–29, 30–49, and 50–64) in 2019 and 2020, comparing monthly patterns to see how commuting behavior shifted during the pandemic. We then provide an interactive Shiny map where users can switch between 2019 and 2020, view the spatial distribution of start and end stations, overlay medical centers and COVID-19 testing sites, and use an animation feature to visualize how station-level traffic changes over time.

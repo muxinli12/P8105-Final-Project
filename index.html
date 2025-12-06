@@ -11,7 +11,7 @@
 
 
 
-<title>The Pulse of the City: An Analysis of COVID-19’s Impact on Jersey City Citi Bike User Behavior and Geospatial Patterns, 2019 vs 2020</title>
+<title>The Pulse of the City: How COVID-19 Reshaped Citi Bike Commuting in Jersey City</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -335,6 +335,9 @@ div.tocify {
   <a href="riding-bike.html">Bikes and Age</a>
 </li>
 <li>
+  <a href="Conclusion.html">Conclusion</a>
+</li>
+<li>
   <a href="https://innerlooop.shinyapps.io/plotly/">Citi Bike in Jersey City</a>
 </li>
 <li>
@@ -358,14 +361,28 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">The Pulse of the City: An Analysis of
-COVID-19’s Impact on Jersey City Citi Bike User Behavior and Geospatial
-Patterns, 2019 vs 2020</h1>
+<h1 class="title toc-ignore">The Pulse of the City: How COVID-19
+Reshaped Citi Bike Commuting in Jersey City</h1>
 
 </div>
 
 
+<style>
+body {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px; 
+  line-height: 1.3;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
+}
+</style>
+<p><br></p>
 <p><img src="images/Citibike-COVID.jpg" style="width:75.0%" /></p>
+<p><br></p>
 <div id="about" class="section level1">
 <h1>About</h1>
 <p>Citi Bike is a privately owned public bicycle sharing system in New
@@ -375,6 +392,7 @@ Queens, as well as Jersey City and Hoboken in New Jersey. Launched in
 programs in the world, providing an affordable, convenient, and
 environmentally friendly transportation option for both residents and
 visitors.</p>
+<p><br></p>
 </div>
 <div id="motivation" class="section level1">
 <h1>Motivation</h1>
@@ -389,7 +407,9 @@ use of public transit led to more Citi Bike trips and longer travel
 distances. In addition, we explore whether the locations of popular Citi
 Bike stations show any patterns similar to the locations of COVID-19
 testing sites and hospitals.</p>
+<p><br></p>
 <p><img src="images/citibike_image2.jpg" style="width:75.0%" /></p>
+<p><br></p>
 </div>
 <div id="data-sources" class="section level1">
 <h1>Data Sources</h1>
@@ -401,15 +421,19 @@ rider demographics like user type (Subscriber or Customer), gender, and
 year of birth. The data is processed to exclude short trips (under 60
 seconds) and staff rides, making it ideal for analyzing riding patterns,
 station popularity, and geographical distribution of trips.</p>
+<p><br></p>
 </div>
-<div id="conclusion" class="section level1">
-<h1>Conclusion</h1>
-<p>Based on our analysis result, we believe that COVID-19 changed
-people’s commuting style in Jersey City. We have observed longer ride
-duration in all age groups, and increased bike rentals across stations.
-These evidences indicate that more people preferred commuting via Citi
-Bike instead of taking the bus or subway, as confined and crowded spaces
-became fertile grounds for the virus to spread.</p>
+<div id="what-have-we-done" class="section level1">
+<h1>What Have We Done</h1>
+<p>On this website, we examine how Citi Bike usage in Jersey City
+changed before and during COVID-19. We first analyze riding time and
+riding distance across three age groups (18–29, 30–49, and 50–64) in
+2019 and 2020, comparing monthly patterns to see how commuting behavior
+shifted during the pandemic. We then provide an interactive Shiny map
+where users can switch between 2019 and 2020, view the spatial
+distribution of start and end stations, overlay medical centers and
+COVID-19 testing sites, and use an animation feature to visualize how
+station-level traffic changes over time.</p>
 </div>
 
 
