@@ -13,11 +13,13 @@ Based on our analysis, we believe that COVID-19 substantially changed people’s
 
 ## Overall Usage of Jersey City Citi Bike
 
-First, both our descriptive statistics and station-level visualizations point to a clear shift in overall usage. Across all age groups we observe longer ride durations in 2020 compared with 2019, as well as a marked increase in the total number of trips. This suggests that Citi Bike was not only used more frequently, but was also used for longer, commute-like journeys rather than short, recreational rides. These findings are consistent with the idea that, once COVID-19 made enclosed and crowded environments risky, more people chose to travel by bike instead of by bus or subway.
+First, both our descriptive statistics and station-level visualizations point to a clear shift in overall usage. Across all age groups we observe longer ride durations in 2020 compared with 2019, as well as a marked increase in the total number of trips. This suggests that Citi Bike was not only used more frequently, but was also used for longer, commute-like journeys rather than short, recreational rides. These findings are consistent with the idea that, once COVID-19 made enclosed and crowded environments risky, more people chose to travel by bike instead of by bus or subway
+![](bike_time_distance_combined.png)
 
 ## Distribution of Popular Stations VS Medical Resources
 
 Second, our Plotly map analysis shows that the most popular Citi Bike stations in 2020 spatially overlap with COVID-19 testing sites and major hospitals in Jersey City. We further classified stations into “origin-dominant” and “destination-dominant” based on relative counts of departures and arrivals. We find that destination stations near hospitals and testing centers experienced especially large increases in arrivals compared with 2019. This pattern is consistent with Citi Bike being used as a practical mode of access to medical and testing facilities during the pandemic. This interpretation is also supported by previous work on New York/New Jersey transit: Wang et al. (2021) document how COVID-19 altered travel behavior and emphasized the role of non-traditional modes when riders tried to avoid crowded transit.
+
 
 ## Analysis Based on different Age Groups
 
