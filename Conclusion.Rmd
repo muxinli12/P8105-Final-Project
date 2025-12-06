@@ -8,27 +8,26 @@ output:
     theme: sandstone
 ---
 
-## Conclusion
 
 Based on our analysis, we believe that COVID-19 substantially changed people’s commuting patterns in Jersey City and pushed many residents toward Citi Bike as a safer alternative to traditional public transit.
 
-# Overall Usage of Jersey City Citi Bike
+## Overall Usage of Jersey City Citi Bike
 
 First, both our descriptive statistics and station-level visualizations point to a clear shift in overall usage. Across all age groups we observe longer ride durations in 2020 compared with 2019, as well as a marked increase in the total number of trips. This suggests that Citi Bike was not only used more frequently, but was also used for longer, commute-like journeys rather than short, recreational rides. These findings are consistent with the idea that, once COVID-19 made enclosed and crowded environments risky, more people chose to travel by bike instead of by bus or subway.
 
-# Distribution of Popular Stations VS Medical Resources
+## Distribution of Popular Stations VS Medical Resources
 
 Second, our Plotly map analysis shows that the most popular Citi Bike stations in 2020 spatially overlap with COVID-19 testing sites and major hospitals in Jersey City. We further classified stations into “origin-dominant” and “destination-dominant” based on relative counts of departures and arrivals. We find that destination stations near hospitals and testing centers experienced especially large increases in arrivals compared with 2019. This pattern is consistent with Citi Bike being used as a practical mode of access to medical and testing facilities during the pandemic. This interpretation is also supported by previous work on New York/New Jersey transit: Wang et al. (2021) document how COVID-19 altered travel behavior and emphasized the role of non-traditional modes when riders tried to avoid crowded transit.
 
-# Analysis Based on different Age Groups
+## Analysis Based on different Age Groups
 
 Third, our behavioral analysis by age group reinforces the same story from a different angle. Drawing on the same paper and related policy documents, New Jersey Transit trains and buses were required to operate at no more than 50% capacity until July 15, 2020 in order to maintain social distancing. In our data, we see that average trip distance increased sharply from early 2020 up to mid-July, and overall distances in 2020 are higher than in 2019. This timing coincides with reduced public transit capacity and gradual reopening, and suggests that many commuters substituted Citi Bike for buses and trains during this period.
 
 The age breakdown is particularly revealing. We find that the largest increase in Citi Bike usage during the pandemic occurs among riders aged 50–69, followed by those aged 30–49, with the 18–29 group showing relatively smaller growth. This pattern suggests that older adults—who face higher health risks from COVID-19—were especially motivated to avoid confined, crowded vehicles and instead relied on Citi Bike for essential trips. Combining this with our spatial results, it is plausible that many of these trips were commutes to hospitals or COVID-19 testing sites, either for personal care or to accompany family members.
 
-# Summary
+## Summary
 
 Taken together, these findings paint a coherent picture: COVID-19 not only increased Citi Bike ridership in Jersey City, but also changed who was riding, where they were going, and how far they traveled. Popular stations shifted toward medical and testing facilities, ride durations and distances increased, and middle-aged to older adults became particularly heavy users of the system. All research we have done support the conclusion that Citi Bike emerged as a key substitute for reduced and risky public transit during the COVID-19 pandemic in Jersey City.
 
-# Reference
+## Reference
 Wang, Ding, et al. "Impact of COVID-19 behavioral inertia on reopening strategies for New York City transit." International Journal of Transportation Science and Technology 10.2 (2021): 197-211.
