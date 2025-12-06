@@ -21,5 +21,5 @@ In this project, we focus on how COVID-19 affected riding habits for users of di
 # Data Sources
 [Citibike](https://citibikenyc.com/system-data): This data set provides comprehensive monthly downloadable files containing trip history for every ride taken. Key information includes trip duration, start and end times/dates, station names and IDs, bike type, and limited rider demographics like user type (Subscriber or Customer), gender, and year of birth. The data is processed to exclude short trips (under 60 seconds) and staff rides, making it ideal for analyzing riding patterns, station popularity, and geographical distribution of trips.
 
-#Conclusion
+# Conclusion
 Based on our analysis result, we believe that COVID-19 changed people's commuting style in Jersey City. We have observed longer ride duration in all age groups, and increased bike rentals across stations. These evidences indicate that more people preferred commuting via Citi Bike instead of taking the bus or subway, as confined and crowded spaces became fertile grounds for the virus to spread.
