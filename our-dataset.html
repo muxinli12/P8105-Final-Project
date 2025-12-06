@@ -383,21 +383,23 @@ all 12 months and two years worth of data into one single database,
 while filtering variables that are useful to our analysis. The merged
 data consists of over 700k ride histories, with useful variables that
 are useful towards our analyses.</p>
-<p>The data includes the precise trip duration (in seconds), which
-allows for granular analysis of ride lengths. This is coupled with the
-exact start time and date and stop time and date, providing temporal
-context for peak usage and daily patterns. Geographically, the data is
-rich, identifying the start station name, end station name, and the
-corresponding unique station ID for both ends of the trip. For precise
-spatial analysis, the Station lat/long (latitude/longitude) coordinates
-are provided, enabling mapping and geographical distribution studies.
-Furthermore, the specific bike ID tracks the physical bicycle used,
-which is valuable for maintenance and inventory management. Finally,
-limited demographic data is included: the user type differentiates
-between short-term pass holders (customer = 24-hour pass or 3-day pass
-user) and annual members (subscriber = annual member); Gender is
-recorded numerically (0 = unknown; 1 = male; 2 = female); and the year
-of birth offers insight into the age distribution of the ridership.</p>
+<ul>
+<li><p>Trip Duration: Duration in seconds.</p></li>
+<li><p>Start &amp; Stop Time: In H:M:S format.</p></li>
+<li><p>Start &amp; End Station ID: Unique IDs for corresponding bike
+stations.</p></li>
+<li><p>Start &amp; End Station Name: Station names for corresponding
+bike stations.</p></li>
+<li><p>Start &amp; End Station Latitude: Latitude coordinates for
+corresponding bike stations.</p></li>
+<li><p>Start &amp; End Station Longtitude: Longtitude coordinates for
+corresponding bike stations.</p></li>
+<li><p>Bike ID: Unique IDs for corresponding citi bikes.</p></li>
+<li><p>Usertype: Customer = 24-hour pass or 3-day pass user; Subscriber
+= annual member</p></li>
+<li><p>Birthyear: Corresponding user’s birthday year.</p></li>
+<li><p>Gender: 0 = unknown; 1 = male; 2 = female.</p></li>
+</ul>
 <pre class="r"><code>## Loading necessary packages
 library(tidyverse)
 library(ggplot2)
