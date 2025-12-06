@@ -339,7 +339,10 @@ div.tocify {
   <a href="riding-bike.html">Bikes and Age</a>
 </li>
 <li>
-  <a href="https://innerlooop.shinyapps.io/plotly/">Citi Bike in Jersey City</a>
+  <a href="Conclusion.html">Conclusion</a>
+</li>
+<li>
+  <a href="https://innerlooop.shinyapps.io/p8105_finalproj/">Citi Bike in Jersey City</a>
 </li>
 <li>
   <a href="mailto:&lt;dc3964@cumc.columbia.edu&gt;">
@@ -376,7 +379,35 @@ age group</h1>
 </div>
 
 
+<style>
+body {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px; 
+  line-height: 1.3;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.navbar,
+.navbar .navbar-brand,
+.navbar-nav > li > a {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 600;
+}
+.tocify,
+.tocify-header,
+.tocify-item {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+}
+</style>
+<p><br></p>
 <p><img src="images/riding%20age.jpg" style="width:75.0%" /></p>
+<p><br></p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>This part examines how riding behaviors in Jersey City changed before
@@ -389,11 +420,13 @@ perceived infection risk on public transportation increased reliance on
 cycling as a safer and more flexible mode of travel. By comparing
 monthly trends across years and age groups, we aim to understand how
 public-health disruptions influenced urban transportation behavior.</p>
+<p><br></p>
 </div>
 <div id="figure-1-and-2" class="section level2">
 <h2>Figure 1 and 2</h2>
 <pre class="r"><code>library(tidyverse)
 library(geosphere)
+library(patchwork)
 
 bike_df = read.csv(&quot;data/bike_data_combined.csv&quot;)
 
@@ -429,7 +462,8 @@ bike_time =
   group_by(year,month,age_group) |&gt;
   summarise(time = mean(tripduration))
 
-ggplot(bike_time, 
+biketime_plot1=
+  ggplot(bike_time, 
        aes(x = age_group, y = time, fill = year)) +
   geom_col(position = &quot;dodge&quot;) +
   facet_wrap(~ month, ncol = 4) +
@@ -442,9 +476,12 @@ ggplot(bike_time,
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
-  )</code></pre>
+  )
+
+biketime_plot1</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(
+<pre class="r"><code>biketime_plot2=
+  ggplot(
   bike_time,
   aes(x = month, y = time, color = age_group, group = age_group)
 ) +
@@ -460,14 +497,17 @@ ggplot(bike_time,
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
-  )</code></pre>
+  )
+biketime_plot2</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><br></p>
 <p>The two plots show that riding time increased across all age groups
 in 2020, especially during April–July, compared with the same months in
 2019. The increase is largest for the 50–64 group, indicating greater
 avoidance of public transit among older adults during the early
 pandemic. All age groups show sustained increases throughout 2020,
 suggesting broader shifts toward outdoor and low-risk travel.</p>
+<p><br></p>
 </div>
 <div id="figure-3-and-4" class="section level2">
 <h2>Figure 3 and 4</h2>
@@ -482,7 +522,8 @@ suggesting broader shifts toward outdoor and low-risk travel.</p>
   group_by(year,month,age_group) |&gt;
   summarise(distance = mean(distance_m))
 
-ggplot(bike_distance,
+bikedistance_plot1=
+  ggplot(bike_distance,
        aes(x = age_group, y = distance, fill = year)) +
   geom_col(position = &quot;dodge&quot;) +
   facet_wrap(~ month, ncol = 4) +
@@ -495,9 +536,12 @@ ggplot(bike_distance,
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
-  )</code></pre>
+  )
+
+bikedistance_plot1</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(
+<pre class="r"><code>bikedistance_plot2=
+  ggplot(
   bike_distance,
   aes(x = month, y = distance, color = age_group, group = age_group)
 ) +
@@ -513,8 +557,13 @@ ggplot(bike_distance,
   theme_minimal(base_size = 12) +
   theme(
     axis.text.x = element_text(angle = 40, hjust = 1)
-  )</code></pre>
+  )
+
+bikedistance_plot2</code></pre>
 <p><img src="riding-bike_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD <br> =======
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+00581a7dced7c61fb7f6a1f7bc5cce2016ccd81e</p>
 <p>Riding distance in 2020 is consistently higher than in 2019 across
 all age groups and nearly all months. The most pronounced increases
 occur during April–August, when many residents replaced subway and bus
@@ -525,6 +574,7 @@ sharp rise beginning in March–April 2020, matching the timing of
 COVID-19 disruptions. Distances remain elevated through late 2020,
 illustrating how cycling became a sustained alternative to public
 transportation during the pandemic.</p>
+<p><br></p>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
@@ -543,6 +593,7 @@ capacity restrictions pushed many users toward non-car modes such as
 biking and Citi Bike; as Wang, Ding et al. (2021) noted, “the transit
 capacity restriction would shift most users to non-car modes, e.g., bike
 and Citi Bike”.</p>
+<p><br></p>
 <div id="reference" class="section level3">
 <h3>Reference</h3>
 <p>Wang, Ding, et al. “Impact of COVID-19 behavioral inertia on
