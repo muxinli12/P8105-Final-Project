@@ -1,5 +1,5 @@
 ---
-title: "Conclusion"
+title: "Final Report"
 output: 
   html_document:
     code_folding: hide
@@ -36,6 +36,18 @@ h1, h2, h3, h4, h5, h6 {
 </style>
 
 Based on our analysis, we believe that COVID-19 substantially changed people’s commuting patterns in Jersey City and pushed many residents toward Citi Bike as a safer alternative to traditional public transit.
+
+<br>
+
+## Background
+
+The COVID-19 pandemic strongly changed how people commute and live day to day. Many avoided crowded, enclosed public transit like buses and subways, and instead turned to more open, individual options. As an outdoor and flexible system, Citi Bike is a good way to see these changes in behavior.
+
+<br>
+
+## Motivation
+
+In this project, we focus on how COVID-19 affected riding habits for users of different ages. We are especially interested in whether reduced use of public transit led to more Citi Bike trips and longer travel distances. In addition, we explore whether the locations of popular Citi Bike stations show any patterns similar to the locations of COVID-19 testing sites and hospitals.
 
 <br>
 
